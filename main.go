@@ -16,7 +16,12 @@ import (
 const port = 8080
 
 type settings struct {
+	GoogleCom settingsGoogleCom `toml:"google_com"`
 	StravaCom settingsStravaCom `toml:"strava_com"`
+}
+
+type settingsGoogleCom struct {
+	Key string `toml:"key"`
 }
 
 type settingsStravaCom struct {
@@ -92,8 +97,9 @@ func main() {
 
 func index(responseWriter http.ResponseWriter, request *http.Request) {
 	data := map[string]interface{}{
-		"mode": "index",
-		"url":  Authenticator.AuthorizationURL("state1", strava.Permissions.Public, true),
+		"google": Settings.GoogleCom.Key,
+		"mode":   "index",
+		"url":    Authenticator.AuthorizationURL("state1", strava.Permissions.Public, true),
 	}
 	err := Templates["index.html"].Execute(responseWriter, data)
 	if err != nil {
@@ -131,6 +137,7 @@ func success(auth *strava.AuthorizationResponse, responseWriter http.ResponseWri
 	routesBytes, _ := json.Marshal(routesList)
 	routesString := template.JS(routesBytes)
 	data := map[string]interface{}{
+		"google":     Settings.GoogleCom.Key,
 		"mode":       "success",
 		"athlete":    auth.Athlete,
 		"stats":      stats,
@@ -145,8 +152,9 @@ func success(auth *strava.AuthorizationResponse, responseWriter http.ResponseWri
 
 func failure(err error, responseWriter http.ResponseWriter, request *http.Request) {
 	data := map[string]interface{}{
-		"mode":  "failure",
-		"error": err.Error(),
+		"google": Settings.GoogleCom.Key,
+		"mode":   "failure",
+		"error":  err.Error(),
 	}
 	err = Templates["index.html"].Execute(responseWriter, data)
 	if err != nil {
