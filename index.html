@@ -1,0 +1,123 @@
+{{ define "content" }}
+  {{ if eq .mode "index" }}
+    <p class="text-center">
+      <a class="btn btn-primary" href="{{ .url }}">Sign In</a>
+    </p>
+  {{ end }}
+  {{ if eq .mode "success" }}
+    <p>{{ .athlete.FirstName }} {{ .athlete.LastName }}</p>
+    <table class="table table-bordered table-hover table-striped">
+      <tr>
+        <td>BiggestRideDistance</td>
+        <td class="text-right">{{ .stats.BiggestRideDistance}}</td>
+      </tr>
+      <tr>
+        <td>BiggestClimbElevationGain</td>
+        <td class="text-right">{{ .stats.BiggestClimbElevationGain}}</td>
+      </tr>
+      <tr>
+        <td>RecentRideTotals.Count</td>
+        <td class="text-right">{{ .stats.RecentRideTotals.Count}}</td>
+      </tr>
+      <tr>
+        <td>RecentRideTotals.Distance</td>
+        <td class="text-right">{{ .stats.RecentRideTotals.Distance}}</td>
+      </tr>
+      <tr>
+        <td>RecentRideTotals.MovingTime</td>
+        <td class="text-right">{{ .stats.RecentRideTotals.MovingTime}}</td>
+      </tr>
+      <tr>
+        <td>RecentRideTotals.ElapsedTime</td>
+        <td class="text-right">{{ .stats.RecentRideTotals.ElapsedTime}}</td>
+      </tr>
+      <tr>
+        <td>RecentRideTotals.ElevationGain</td>
+        <td class="text-right">{{ .stats.RecentRideTotals.ElevationGain}}</td>
+      </tr>
+      <tr>
+        <td>RecentRideTotals.AchievementCount</td>
+        <td class="text-right">{{ .stats.RecentRideTotals.AchievementCount}}</td>
+      </tr>
+      <tr>
+        <td>YTDRideTotals.Count</td>
+        <td class="text-right">{{ .stats.YTDRideTotals.Count}}</td>
+      </tr>
+      <tr>
+        <td>YTDRideTotals.Distance</td>
+        <td class="text-right">{{ .stats.YTDRideTotals.Distance}}</td>
+      </tr>
+      <tr>
+        <td>YTDRideTotals.MovingTime</td>
+        <td class="text-right">{{ .stats.YTDRideTotals.MovingTime}}</td>
+      </tr>
+      <tr>
+        <td>YTDRideTotals.ElapsedTime</td>
+        <td class="text-right">{{ .stats.YTDRideTotals.ElapsedTime}}</td>
+      </tr>
+      <tr>
+        <td>YTDRideTotals.ElevationGain</td>
+        <td class="text-right">{{ .stats.YTDRideTotals.ElevationGain}}</td>
+      </tr>
+      <tr>
+        <td>AllRideTotals.Count</td>
+        <td class="text-right">{{ .stats.AllRideTotals.Count}}</td>
+      </tr>
+      <tr>
+        <td>AllRideTotals.Distance</td>
+        <td class="text-right">{{ .stats.AllRideTotals.Distance}}</td>
+      </tr>
+      <tr>
+        <td>AllRideTotals.MovingTime</td>
+        <td class="text-right">{{ .stats.AllRideTotals.MovingTime}}</td>
+      </tr>
+      <tr>
+        <td>AllRideTotals.ElapsedTime</td>
+        <td class="text-right">{{ .stats.AllRideTotals.ElapsedTime}}</td>
+      </tr>
+      <tr>
+        <td>AllRideTotals.ElevationGain</td>
+        <td class="text-right">{{ .stats.AllRideTotals.ElevationGain}}</td>
+      </tr>
+    </table>
+    <table class="table table-bordered table-hover table-striped">
+        <tr>
+            <th>Name</th>
+            <th class="text-right">Distance</th>
+            <th>Moving Time</th>
+            <th>Elapsed Time</th>
+            <th class="text-right">Total Elevation Gain</th>
+            <th>Start Date/Time</th>
+            <th class="text-right">Achievements</th>
+            <th class="text-right">Average Speed</th>
+            <th class="text-right">Maximum Speed</th>
+            <th class="text-right">Average Watts</th>
+            <th class="text-right">Weighted Average Watts</th>
+            <th class="text-right">kJ</th>
+        </tr>
+        {{ range .activities }}
+          <tr>
+            <td>{{ .Name }}</td>
+            <td class="text-right">{{ .Distance }}</td>
+            <td>{{ .MovingTime }}</td>
+            <td>{{ .ElapsedTime }}</td>
+            <td class="text-right">{{ .TotalElevationGain }}</td>
+            <td>{{ .StartDateLocal }}</td>
+            <td class="text-right">{{ .AchievementCount }}</td>
+            <td class="text-right">{{ .AverageSpeed }}</td>
+            <td class="text-right">{{ .MaximunSpeed }}</td>
+            <td class="text-right">{{ .AveragePower }}</td>
+            <td class="text-right">{{ .WeightedAveragePower }}</td>
+            <td class="text-right">{{ .Kilojoules }}</td>
+          </tr>
+        {{ end }}
+    </table>
+    <script type="text/javascript">
+      var routes = {{ .routes }};
+    </script>
+    <div id="map"></div>
+  {{ end }}
+  {{ if eq .mode "failure" }}
+    <p>Failure: {{ .error }}</p>
+  {{ end }}
+{{ end }}
