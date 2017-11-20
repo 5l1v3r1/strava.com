@@ -1,3 +1,6 @@
+[google.com]
+key = "..."
+
 [strava.com]
 client_id = ...
 client_secret = "..."
