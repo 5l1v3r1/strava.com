@@ -1,6 +1,6 @@
-[google.com]
+[google_com]
 key = "..."
 
-[strava.com]
+[strava_com]
 client_id = ...
 client_secret = "..."
